@@ -19,7 +19,7 @@ function JoinCampaign() {
             }
         
         
-        
+        //feth all campaigns
             fetchAllCampaigns()
         
         }, [])
