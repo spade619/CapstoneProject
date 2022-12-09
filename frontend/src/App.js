@@ -4,27 +4,43 @@ import { useAuthContext } from './hooks/useAuthContext'
 import Profile from './pages/Profile'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
-import Navbar from './components/Navbar'
+import Navibar from './components/Navibar'
 import Footer from './components/Footer'
 import Home from './pages/Home'
 import Campaigns from './pages/Campaigns'
+import CreateCampaign from './pages/CreateCampaign'
 import About from './pages/About'
+import JoinCampaign from './pages/JoinCampaign'
 import UserSettings from './pages/UserSettings'
+import { useState } from 'react'
+import {ChatContext, socket} from './context/chatContext'
 
 function App(){
   //grabs the value either a user is logged in or logged out
   const {user} = useAuthContext()
-
+  // change the state of the chat app
+  const [rooms, setRooms] = useState([])
+  const [currentRoom, setCurrentRooms] = useState([])
+  const [members, setMembers] = useState([])
+  const [messages, setMessages] = useState([])
+  const [privatememberMsg, setprivateMemberMsg] = useState({})
+  const [newMessages, setnewMessages] = useState({})
   return (
     <div className='App'>
+
+<ChatContext.Provider value={{socket, 
+        rooms, setRooms,
+        currentRoom, setCurrentRooms, 
+        members, setMembers,
+        messages, setMessages,
+        privatememberMsg, setprivateMemberMsg,
+        newMessages, setnewMessages}}>
       <BrowserRouter>
-      <Navbar />
+      <Navibar />
       
         <div className='pages'>
           <Routes>
-            
-
-             
+      
           <Route 
             path ="/"
             // if a user is not logged in redirect to login page
@@ -67,6 +83,19 @@ function App(){
             //if signup is successfull navigate to profile page
             element={user ? <Campaigns /> : <Navigate to = "/login" />}
             />
+
+            
+          <Route 
+            path ="campaigns/create"
+            //if signup is successfull navigate to profile page
+            element={user ? <CreateCampaign /> : <Navigate to = "/login" />}
+            />
+
+<Route 
+            path ="campaigns/join"
+            //if signup is successfull navigate to profile page
+            element={user ? <JoinCampaign /> : <Navigate to = "/login" />}
+            />
           
           </Routes>
 
@@ -74,8 +103,23 @@ function App(){
           </div>      
           <Footer />
       </BrowserRouter>
+      </ChatContext.Provider>
+    
     </div>
   )
 }
 
 export default App;
+
+
+  //     {/* <ChatContext.Provider value={{socket, 
+  //       rooms, setRooms,
+  //       currentRoom, setCurrentRooms, 
+  //       members, setMembers,
+  //       messages, setMessages,
+  //       privatememberMsg, setprivateMemberMsg,
+  //       newMessages, setnewMessages}}> */}
+
+
+  // {/* </ChatContext.Provider> */}
+      

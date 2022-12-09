@@ -9,9 +9,9 @@ const Home = () => {
         <Container>
             <Row>
                 <Col md={4}>
-                    
+                    <Sidebar />
                 </Col>
-                <Col>
+                <Col md={8}>
                     <ChatForm />
                 </Col>
             </Row>

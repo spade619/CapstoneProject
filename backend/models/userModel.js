@@ -22,11 +22,12 @@ const userSchema = new Schema({
     password: {
         type: String,
         required: true
-    }
+    },
 
-   
-
-}, {timestamps: true})
+ 
+ 
+ //timestamps for date and time   //minimize used to insert default empty object {} values
+}, {timestamps: true}, {minimize: false})
 
 //static signup method (Registration)
   userSchema.statics.signup = async function(name, email, password) {
