@@ -14,7 +14,9 @@ function CampaignDetails({campaign}) {
         const json = await response.json()
 
         if (response.ok) {
-            dispatch({type: 'DELETE_CAMPAIGN', payload: json})
+         
+          dispatch({type: 'DELETE_CAMPAIGN', payload: json})
+        
         }
     }
 
@@ -26,9 +28,10 @@ function CampaignDetails({campaign}) {
    
       <tbody>
         <tr>
-        <Button variant="link"><strong>{campaign.title}</strong></Button>
+        <Button variant="link"><strong>{campaign.title}</strong>       
+        </Button>
 
-<p>{formatDistanceToNow(new Date(campaign.createdAt), {addSuffix: true})}</p>
+        <p>{formatDistanceToNow(new Date(campaign.createdAt), {addSuffix: true})}</p>
 <button className = "material-symbols-outlined" onClick={handleClick}>delete</button>
 
         </tr>

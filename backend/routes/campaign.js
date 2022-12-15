@@ -4,14 +4,22 @@ const {createCampaign,
        getCampaign,
        deleteCampaign,
        updateCampaign,
-       getAllCampaigns} = require('../controllers/campaignController')
+       getAllCampaigns,
+       getUserName,
+       CurrentCampaign} = require('../controllers/campaignController')
        const requireAuth = require('../middleware/requireAuth')
 
 
        const router = express.Router()
        router.get('/join', getAllCampaigns)
+       router.get('/join/:id', getUserName)
+       router.get('/join/specific-campaign/:id', CurrentCampaign)
+       
+//DELETE user's campaign 
+router.delete('/:id', deleteCampaign)
       
 router.use(requireAuth)
+
 
 //GET  user's created campaign 
 router.get('/', getCampaigns)
@@ -22,8 +30,6 @@ router.post('/create', createCampaign)
 
 
 
-//DELETE user's campaign 
-router.delete('/:id', deleteCampaign)
 
 
 
@@ -37,9 +43,9 @@ router.patch('/:id', updateCampaign)
 
 
 //POST join a specific campaign database logic
-router.post('join/:id', () => {
+// router.post('join/:id', () => {
 
-})
+// })
 
 module.exports = router
 

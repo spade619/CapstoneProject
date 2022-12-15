@@ -6,14 +6,19 @@ import { Button } from 'react-bootstrap'
 function JoinCampaign() {
 
     const [Allcampaigns, setAllCampaigns] = useState(null)
+   
 
         useEffect(() => {
       
             const fetchAllCampaigns = async () => {
                 const response = await fetch('/api/campaigns/join')
                 const json = await response.json()
+
+              
+                
                 if(response.ok){
                     setAllCampaigns(json)
+                 
                   //  console.log(json)
                 }
             }

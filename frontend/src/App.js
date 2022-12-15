@@ -14,6 +14,7 @@ import JoinCampaign from './pages/JoinCampaign'
 import UserSettings from './pages/UserSettings'
 import { useState } from 'react'
 import {ChatContext, socket} from './context/chatContext'
+import CurrentCampaign from './components/CurrentCampaign'
 
 function App(){
   //grabs the value either a user is logged in or logged out
@@ -91,12 +92,19 @@ function App(){
             element={user ? <CreateCampaign /> : <Navigate to = "/login" />}
             />
 
-<Route 
+          <Route 
             path ="campaigns/join"
             //if signup is successfull navigate to profile page
             element={user ? <JoinCampaign /> : <Navigate to = "/login" />}
             />
-          
+
+             <Route 
+            path ="campaigns/join/specific-campaign/:id"
+            //if signup is successfull navigate to profile page
+            element={user ? <CurrentCampaign /> : <Navigate to = "/login" />}
+            />
+
+            
           </Routes>
 
           

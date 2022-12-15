@@ -1,8 +1,34 @@
 const   mongoose  = require('mongoose')
 const Campaign = require('../models/campaignModel')
+const UserName = require('../models/userModel')
 
 
 
+
+
+
+//get thecurrent campaign campaigns
+const CurrentCampaign = async (req, res) => {
+    try{
+        const campaignID=req.params
+       
+    const currentcampaign = await Campaign.find({campaignID})
+    res.status(200).json(currentcampaign)
+} catch (error) {
+        res.status(404).json({error: error.message})
+        console.log(error)
+        
+    }
+     
+}
+
+
+//get the username of the campaign
+const getUserName = async (req, res) => {
+   // const user_id=req.params.id
+    const Uname = await UserName.findById(req.params.id).select('name')
+    res.status(200).json(Uname)
+}
 //get all campaigns
 const getCampaigns = async (req, res) => {
     try{
@@ -15,9 +41,7 @@ const getCampaigns = async (req, res) => {
         console.log(error)
         
     }
-    
-
-    
+     
 }
 
 //get all campaigns
@@ -80,7 +104,7 @@ const campaign = await Campaign.findOneAndDelete({_id: id})
 if(!campaign) {
     return res.status(404).json({error: 'No Campaign exists'})
 }
-
+//res.status(404).json(error)
 res.status(200).json(campaign)
 
 }
@@ -117,6 +141,8 @@ module.exports = {
     getCampaign,
     deleteCampaign,
     updateCampaign,
-    getAllCampaigns
+    getAllCampaigns,
+    getUserName,
+    CurrentCampaign
 
 }

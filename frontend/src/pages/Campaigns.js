@@ -40,14 +40,14 @@ const Campaigns = () => {
         <Container>
         <br/>
                   <br/>
+                  <h2>MY CAMPAIGNS</h2>
       <LinkContainer to="/campaigns/create">
     
       <Button><strong>Create Campaign</strong></Button>
             
-    
-
-
                   </LinkContainer>
+               
+                
 
                   {campaigns && campaigns.map((campaign) => (                           
      <CampaignDetails key = {campaign._id} campaign={campaign} />
