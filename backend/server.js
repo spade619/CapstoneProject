@@ -1,3 +1,4 @@
+const path = require('path')
 require('dotenv').config()
 const express = require('express')
 const  mongoose  = require('mongoose')
@@ -66,6 +67,18 @@ app.listen(process.env.PORT, () => {
     console.log('connection unsuccessful')
 })
 
+//server frontend
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static(path.join(__dirname, '../frontend/build')))
+
+    app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../', 
+    'frontend', 'build', 'index.html')))
+}else{
+    app.get('/', (req, res) => res.send('set to pruduction'))
+}
+
+
+
 
 
 // socket.io server-------------------------------------------------------------------------------------------------------------
@@ -74,7 +87,7 @@ const server = require('http').createServer(app)
 
  const io = require('socket.io')(server, {
      cors: {
-      origin: 'http://localhost:3000',
+      origin: '*',
      methods: ['GET', 'POST']
     }
  })

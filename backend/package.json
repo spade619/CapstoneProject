@@ -4,7 +4,7 @@
   "description": "this is the backend for Chat-Application-Mern ",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
     "server": "nodemon server.js"
   },
   "author": "alnil tanudtanud",

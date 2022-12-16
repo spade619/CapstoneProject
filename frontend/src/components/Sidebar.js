@@ -22,6 +22,11 @@ function Sidebar () {
        
 
        useEffect(() => {
+        function getRooms () {
+            fetch('http://localhost:4001/rooms')
+            .then((res) => res.json())
+            .then((data) => setRooms(data))
+           } 
             // setCurrentRoom('Server')
             getRooms()
             socket.emit('join-room', 'Server')
@@ -38,11 +43,7 @@ function Sidebar () {
         })
 
             //fetch the rooms
-       function getRooms () {
-        fetch('http://localhost:4000/rooms')
-        .then((res) => res.json())
-        .then((data) => setRooms(data))
-       } 
+      
 
 
     
