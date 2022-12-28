@@ -13,29 +13,19 @@ import About from './pages/About'
 import JoinCampaign from './pages/JoinCampaign'
 import UserSettings from './pages/UserSettings'
 import { useState } from 'react'
-import {ChatContext, socket} from './context/chatContext'
+
 import CurrentCampaign from './components/CurrentCampaign'
 
 function App(){
   //grabs the value either a user is logged in or logged out
   const {user} = useAuthContext()
-  // change the state of the chat app
-  const [rooms, setRooms] = useState([])
-  const [currentRoom, setCurrentRooms] = useState([])
-  const [members, setMembers] = useState([])
-  const [messages, setMessages] = useState([])
-  const [privatememberMsg, setprivateMemberMsg] = useState({})
-  const [newMessages, setnewMessages] = useState({})
+
+
+
   return (
     <div className='App'>
 
-<ChatContext.Provider value={{socket, 
-        rooms, setRooms,
-        currentRoom, setCurrentRooms, 
-        members, setMembers,
-        messages, setMessages,
-        privatememberMsg, setprivateMemberMsg,
-        newMessages, setnewMessages}}>
+
       <BrowserRouter>
       <Navibar />
       
@@ -111,7 +101,7 @@ function App(){
           </div>      
           <Footer />
       </BrowserRouter>
-      </ChatContext.Provider>
+   
     
     </div>
   )
@@ -120,14 +110,3 @@ function App(){
 export default App;
 
 
-  //     {/* <ChatContext.Provider value={{socket, 
-  //       rooms, setRooms,
-  //       currentRoom, setCurrentRooms, 
-  //       members, setMembers,
-  //       messages, setMessages,
-  //       privatememberMsg, setprivateMemberMsg,
-  //       newMessages, setnewMessages}}> */}
-
-
-  // {/* </ChatContext.Provider> */}
-      

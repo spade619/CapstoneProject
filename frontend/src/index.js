@@ -6,12 +6,22 @@ import App from './App';
 import { CampaignContextProvider } from './context/CampaignContext';        
 import { ProfileContextProvider } from './context/Profilecontext';
 import { AuthContextProvider } from './context/AuthContext';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit'
+import userReducer from './featuresRedux/chatUsers'
+
+const store = configureStore({
+  reducer: {
+      user: userReducer,
+  },
+});
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     
+    <Provider store={store}>
     <AuthContextProvider>
     <ProfileContextProvider>
       <CampaignContextProvider>
@@ -19,6 +29,7 @@ root.render(
       </CampaignContextProvider>
      </ProfileContextProvider>
     </AuthContextProvider>
+    </Provider>
 
   </React.StrictMode>
 );

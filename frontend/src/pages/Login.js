@@ -3,7 +3,7 @@ import { Col, Row, Container, Form, Button } from 'react-bootstrap'
 import "./Login.css"
 import { useLogin } from '../hooks/useLogin'
 import { Link } from 'react-router-dom'
-import { ChatContext } from '../context/chatContext'
+
 
 
 
@@ -12,7 +12,7 @@ const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const {login, error, isLoading} = useLogin()
-    const {socket} =useContext(ChatContext)
+    
 
 
     //activates when submit button is clicked 
@@ -20,7 +20,7 @@ const Login = () => {
         e.preventDefault()
        //fetch login information
         await login(email, password)
-       socket.emit('new-user')
+       
        
 
     }

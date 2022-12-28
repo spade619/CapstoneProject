@@ -1,4 +1,4 @@
-const path = require('path')
+// const path = require('path')
 require('dotenv').config()
 const express = require('express')
 const  mongoose  = require('mongoose')
@@ -6,11 +6,26 @@ const userRoutes = require('./routes/user')
 const profileRoutes = require('./routes/userProfile')
 const campaignRoutes = require('./routes/campaign')
 const cors = require('cors')
-const Message = require('./models/messageModel')
 const User = require('./models/userModel')
+const CreateRoom = require('./models/defaultChatRoomModel')
 
-//chat rooms
-const rooms = ['Server', 'Team', 'room1', 'room2']
+// const roomName='Test-Chat-Room2'
+// const createDefaultRoom = async (req, res) => {
+   
+//     //add doc to db
+//     try {
+        
+//         const createRoom = await CreateRoom.create({roomName})
+//         res.status(200).json(createRoom)
+//     } catch (error) {
+//         res.status(400).json({error: error.message})
+//     }
+// }
+
+// createDefaultRoom()
+
+
+
 
 
 
@@ -38,6 +53,12 @@ app.use((req, res, next) => {
 
 
 //handle ROUTES REQUEST made from by the frontend
+//calls on the home page's default rooms
+//const rooms = ['Server', 'Team', 'room1', 'room2']
+app.get('/api/home', async (req, res) =>{  
+    const rooms = await CreateRoom.find({})
+    res.status(200).json(rooms)
+})
 //calls on the profile page
 app.use('/api/profiles', profileRoutes)
 //calls on the user login and signup routes 
@@ -68,14 +89,14 @@ app.listen(process.env.PORT, () => {
 })
 
 //server frontend
-if(process.env.NODE_ENV === 'production'){
-    app.use(express.static(path.join(__dirname, '../frontend/build')))
+// if(process.env.NODE_ENV === 'production'){
+//     app.use(express.static(path.join(__dirname, '../frontend/build')))
 
-    app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../', 
-    'frontend', 'build', 'index.html')))
-}else{
-    app.get('/', (req, res) => res.send('set to pruduction'))
-}
+//     app.get('*', (req, res) => res.sendFile(path.resolve(__dirname, '../', 
+//     'frontend', 'build', 'index.html')))
+// }else{
+//     app.get('/', (req, res) => res.send('set to pruduction'))
+//}
 
 
 
@@ -87,7 +108,7 @@ const server = require('http').createServer(app)
 
  const io = require('socket.io')(server, {
      cors: {
-      origin: '*',
+      origin:  'http://localhost:3000',
      methods: ['GET', 'POST']
     }
  })
@@ -96,92 +117,48 @@ const server = require('http').createServer(app)
 
 
 
-//this will get all the messages and current conversation of a single room
-async function getLastMessageFromRoom(room){
-let roomMessages = await Message.aggregate([
-    {$match: {to: room}},
-    {$group: {_id: '$date', messagesByDate: {$push: '$$ROOT'}}}
-])
-return roomMessages
-}
-
-function sortRoomMessagesByDate(messages){
-    return messages.sort(function(a, b){
-        let date1 = a._id.split('/')
-        let date2 = b._id.split('/')
-
-        date1 = date1[2] + date1[0] + date1[1]
-        date2 = date2[2] + date2[0] + date2[1]
-
-        return date1 < date2 ? -1 : 1
-    })
-}
 
 
 
 //socket connection------------------------------------------------------------------------------------------------------
 
  io.on('connection', (socket) => {
-     console.log(`user connected: ${socket.id}`)
-    
-
-    
-
-     socket.on('new-user', async () => {
-        const members = await User.find()
-        io.emit('new-user', members)
-    })
-    
-
-
-    socket.on('join-room', async(room) => {
-        socket.join(room)
-        let roomMessages = await getLastMessageFromRoom(room)
-        roomMessages = sortRoomMessagesByDate(roomMessages)
-        socket.emit('room-messages', roomMessages)
-    })
-
-    socket.on('message-room', async(room, content, sender, time, date) => {
-        console.log('new message', content)
-        const newMessage = await Message.create({content, from: sender, time, date, to: room})
-        let roomMessages = await getLastMessageFromRoom(room)
-        roomMessages = sortRoomMessagesByDate(roomMessages)
-        //send message to room
-        io.to(room).emit('room-messages', roomMessages)
-
-        //send notification to a room
-        socket.broadcast.emit('notifications', room)
-    })
- 
-
-
-
-
-     socket.on('send_back', (data) => {
-        socket.emit(data)
-
-     })
-
-     socket.on('send_message', (data) => {
-          socket.to(data.room).emit('recieve_message', data)
+     console.log(`user: ${socket.id} has connected`)
+       
+     CreateRoom.find().then(result => {
+        io.emit('output-rooms', result)
      })
      
+    
+    socket.on('join_room', (data1, data2) => {
+        socket.join(data2)
+        console.log(`user: ${data1} has joined room ${data2}`)
+        io.to(data2).emit('recieve_users', data1)
+    })
+   // socket.to(data2._id)
+    socket.on('send_users', (data) => {
+       const test = ['test user','bossing']
+        console.log(`room id sent is ${data} `)
+        CreateRoom.findById(data).select('members').then(SearchResult => {
+          
+            io.emit('recieve_users', SearchResult)
+         })
+        
+    })
 
-   socket.on('disconnect', () => {
-         console.log('user disconnected', socket.id)
+    //
+
+     socket.on('disconnect', () => {
+        console.log(`user: ${socket.id} has disconnected`, )
      })
-   
-   
    
  })
 
 
- app.get('/rooms', (req, res) =>{
-    res.json(rooms)
-})
 
  //socket.io server
  server.listen(4001, () => {
     console.log('server is now online -Nel Infinity')
  })
 
+// '*'
