@@ -3,10 +3,10 @@ import Sidebar from "../components/Sidebar";
 import ChatForm from "../components/ChatForm";
 import SidebarUsersList from '../components/SidebarUsersList'
 import { useState, useEffect } from "react";
-import { useAuthContext } from '../hooks/useAuthContext'
+//import { useAuthContext } from '../hooks/useAuthContext'
+import io from 'socket.io-client'
 
-
-
+const socket = io.connect('http://localhost:4001')
 
 
 
@@ -17,12 +17,8 @@ const Home = () => {
     const [room, setRoom] = useState(null)
     
    
-    const {user} = useAuthContext()
-   
-  
+ //   const {user} = useAuthContext()
 
-   
-    
     useEffect(() => {
        
         const fetchAllRooms = async () => {
@@ -56,11 +52,11 @@ const Home = () => {
                 <Col md={4}>
                    
                 {room && room.map((room) => (                           
-     <Sidebar  room={room} key = {room._id} />
+     <Sidebar socket={socket} room={room} key = {room._id} />
                 ))}
                   
               <Col>
-              <SidebarUsersList />
+              <SidebarUsersList socket = {socket}/>
               </Col>
                 
             

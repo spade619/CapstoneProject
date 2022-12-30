@@ -1,23 +1,23 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { Col, ListGroup, Row } from "react-bootstrap";
 import "./Sidebar.css";
 import { useAuthContext } from '../hooks/useAuthContext'
-import io from 'socket.io-client'
-import { useDispatch } from "react-redux";
-import { setUser } from "../featuresRedux/chatUsers";
-
-const socket = io.connect('http://localhost:4001')
 
 
 
 
 
-function Sidebar ({room}) {
-  const dispatch = useDispatch()
+
+
+
+
+function Sidebar ({socket, room}) {
+  
   const {_id} = room
  
    const [AllRooms, setAllRooms] = useState(null)
   //picks a certain room by id
+  const buttonRef = useRef()
   
 
   //targets the current user
@@ -29,9 +29,21 @@ function Sidebar ({room}) {
   
   //to select  a specific chat room
   const selectRoom = async () => {
-    await socket.emit('send_users', _id)
+    await socket.emit('send_users', user.name ,_id)
+   
   
   }
+
+  function focus () {
+    buttonRef.current.focus()
+  }
+
+   function handleClick () {
+    send()
+    selectRoom()
+    focus()
+
+   }
 
     
     useEffect(() => {
@@ -39,13 +51,9 @@ function Sidebar ({room}) {
       const {roomName} = room
       setAllRooms(roomName)
       
-      socket.on('recieve_users', (data1) => {
-      // console.log(data1)
-      
-       dispatch(setUser({name: data1.members}))
-     })
+   
      
-   }, [socket])
+   }, [])
    
 
    
@@ -65,8 +73,8 @@ function Sidebar ({room}) {
        
          <div>
             <div>      
-            <button onClick={selectRoom}>{AllRooms} </button>
-            <button onClick={send}>join</button>
+            <button  ref={buttonRef} onClick={selectRoom}>{AllRooms} </button>
+            <button  onClick={handleClick}>join</button>
            </div>
         </div>
 

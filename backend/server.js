@@ -123,6 +123,9 @@ const server = require('http').createServer(app)
 //socket connection------------------------------------------------------------------------------------------------------
 
  io.on('connection', (socket) => {
+
+
+
      console.log(`user: ${socket.id} has connected`)
        
      CreateRoom.find().then(result => {
@@ -130,27 +133,44 @@ const server = require('http').createServer(app)
      })
      
     
-    socket.on('join_room', (data1, data2) => {
-        socket.join(data2)
-        console.log(`user: ${data1} has joined room ${data2}`)
-        io.to(data2).emit('recieve_users', data1)
+    socket.on('join_room', (userEmail, roomID) => {
+        socket.join(roomID) 
+       
+        console.log(`user: ${userEmail} has joined room ${roomID}`)
+        //io.to(data2).emit('recieve_users', data1)
+        CreateRoom.updateOne({_id: roomID, }, {$push: {email: userEmail}}).then(results => {
+          //  io.emit('recieve_users', results)
+       
+        })
+
+        socket.on('disconnect', () => {
+            console.log(`user: ${userEmail} has disconnected on room ${roomID} ` )
+            CreateRoom.updateOne({_id: roomID, }, {$pull: {email: userEmail}}).then(resultss => {
+               // io.emit('recieve_users', resultss)
+           
+            })
+    
+          })
+
+
     })
    // socket.to(data2._id)
-    socket.on('send_users', (data) => {
-       const test = ['test user','bossing']
-        console.log(`room id sent is ${data} `)
-        CreateRoom.findById(data).select('members').then(SearchResult => {
+    socket.on('send_users', (dataEmail ,dataRoom) => {
+      
+      socket.emit('recieve_users', dataEmail)
+        console.log(`room id sent is ${dataRoom} `)
+        CreateRoom.findById(dataRoom).select('email').then(SearchResult => {
           
-            io.emit('recieve_users', SearchResult)
+            socket.emit('recieve_users', SearchResult)
          })
+
+
         
     })
 
     //
 
-     socket.on('disconnect', () => {
-        console.log(`user: ${socket.id} has disconnected`, )
-     })
+    
    
  })
 

@@ -1,17 +1,39 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useState } from 'react'
+// import { useSelector } from 'react-redux'
+// import { useDispatch } from "react-redux";
+// import { setUser } from "../featuresRedux/chatUsers";
 
-function SidebarUsersList() {
-  const user = useSelector((state) => state.user.value)
-  const {name} = user
+function SidebarUsersList({socket}) {
+
+  // const dispatch = useDispatch()
+  const [Users, setUsers] = useState('')
+  // const user = useSelector((state) => state.user.value)
+ 
+  // const {name} = user
+  // console.log(user)
   
-  console.log(user)
+  
+useEffect(() => {
+  
+ 
+
+  socket.on('recieve_users', (data1) => {
+      console.log(data1)
+    const {email} = data1
+    setUsers(email)
+      // dispatch(setUser({name: data1.email}))
+    })
+
+   
+  
+}, [socket])
+
   return (
     <div> 
      
-      {name && name.map((name, idx) => (
+      {Users && Users.map((Users, idx) => (
         <div key={idx}>
-          <h3>{name}</h3>
+          <h3>{Users}</h3>
         </div>
       ))}
       
