@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 function SidebarUsersList({socket}) {
 
   // const dispatch = useDispatch()
-  const [Users, setUsers] = useState('')
+  const [Users, setUsers] = useState([])
   // const user = useSelector((state) => state.user.value)
  
   // const {name} = user
@@ -18,15 +18,15 @@ useEffect(() => {
  
 
   socket.on('recieve_users', (data1) => {
-      console.log(data1)
-    const {email} = data1
-    setUsers(email)
+     // console.log('test', data1)
+   const {email} = data1
+    // setUsers((userList) => [...userList, email])
       // dispatch(setUser({name: data1.email}))
-    })
-
-   
+      setUsers(email)
+    }) 
   
-}, [socket])
+}, [])
+
 
   return (
     <div> 
@@ -35,9 +35,11 @@ useEffect(() => {
         <div key={idx}>
           <h3>{Users}</h3>
         </div>
+       
       ))}
       
       </div>
+
   )
 }
 

@@ -6,7 +6,7 @@ import "./ChatForm.css";
 
 
 
-function ChatForm () {
+function ChatForm1 () {
     // const { ...user } = useAuthContext()
   
     const [message, setMessage] = useState('')
@@ -20,7 +20,8 @@ function ChatForm () {
 
 
     return (
-    <>
+    <>  
+    <h3><strong>Global-Chat-Room(Messenger)</strong></h3>
          <div className="messages-output"> </div>
              <Form onSubmit = {handleSubmit}>
 
@@ -46,4 +47,4 @@ function ChatForm () {
 }
 
 
-export default ChatForm
+export default ChatForm1

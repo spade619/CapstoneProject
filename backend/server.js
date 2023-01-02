@@ -135,12 +135,12 @@ const server = require('http').createServer(app)
     
     socket.on('join_room', (userEmail, roomID) => {
         socket.join(roomID) 
-       
+       // 
         console.log(`user: ${userEmail} has joined room ${roomID}`)
         //io.to(data2).emit('recieve_users', data1)
         CreateRoom.updateOne({_id: roomID, }, {$push: {email: userEmail}}).then(results => {
-          //  io.emit('recieve_users', results)
-       
+            //socket.emit('recieve_users', results)
+            socket.to(roomID).emit('recieve_users', userEmail)
         })
 
         socket.on('disconnect', () => {
@@ -155,9 +155,9 @@ const server = require('http').createServer(app)
 
     })
    // socket.to(data2._id)
-    socket.on('send_users', (dataEmail ,dataRoom) => {
+    socket.on('send_users', (dataRoom) => {
       
-      socket.emit('recieve_users', dataEmail)
+    //  socket.emit('recieve_users', dataEmail)
         console.log(`room id sent is ${dataRoom} `)
         CreateRoom.findById(dataRoom).select('email').then(SearchResult => {
           

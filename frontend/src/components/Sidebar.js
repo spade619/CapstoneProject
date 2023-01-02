@@ -29,7 +29,7 @@ function Sidebar ({socket, room}) {
   
   //to select  a specific chat room
   const selectRoom = async () => {
-    await socket.emit('send_users', user.name ,_id)
+    await socket.emit('send_users', _id)
    
   
   }
@@ -73,8 +73,8 @@ function Sidebar ({socket, room}) {
        
          <div>
             <div>      
-            <button  ref={buttonRef} onClick={selectRoom}>{AllRooms} </button>
-            <button  onClick={handleClick}>join</button>
+            <button onClick={selectRoom}>{AllRooms} </button>
+            <button  ref={buttonRef}  onClick={handleClick}>join</button>
            </div>
         </div>
 

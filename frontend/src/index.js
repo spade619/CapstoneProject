@@ -19,8 +19,8 @@ const store = configureStore({
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    
+  // <React.StrictMode>
+  //     </React.StrictMode>
     <Provider store={store}>
     <AuthContextProvider>
     <ProfileContextProvider>
@@ -31,7 +31,7 @@ root.render(
     </AuthContextProvider>
     </Provider>
 
-  </React.StrictMode>
+
 );
 
 
