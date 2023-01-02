@@ -14,7 +14,7 @@ function ChatForm3() {
            
   return (
     <>  
-    <h3><strong>TestRoom3(Messenger)</strong></h3>
+    <h3><strong>Admin's Room(Talk to Nel?)</strong></h3>
          <div className="messages-output"> </div>
              <Form onSubmit = {handleSubmit}>
 

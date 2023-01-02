@@ -31,7 +31,6 @@ function Sidebar ({socket, room}) {
   const selectRoom = async () => {
     await socket.emit('send_users', _id)
    
-  
   }
 
   function focus () {
