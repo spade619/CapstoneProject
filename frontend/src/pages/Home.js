@@ -19,13 +19,23 @@ const socket = io.connect('http://localhost:4001')
 
 
 
-
 const Home = () => {
   
 //     const [room, setRoom] = useState()
     
    
    const {user} = useAuthContext()
+ 
+
+
+//  useEffect(() => {
+  
+
+//   return () => {
+//     socket.disconnect()
+//   }
+//  }, [])
+
 
 //     useEffect(() => {
        
@@ -51,7 +61,7 @@ const Home = () => {
     const roomID3= '63a21335cde1614c7975b74e'
  
  
-    const [ToggleRoom, setToggleRoom] = useState(0)
+    const [ToggleRoom, setToggleRoom] = useState(null)
 
     const sendRoom1 = async () => {
        await socket.emit('join_room', user.name, roomID1)

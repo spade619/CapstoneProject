@@ -5,11 +5,21 @@ import storyadore from '../assets/storyadore.png'
 import { Container, Nav, Navbar } from 'react-bootstrap'
 import {LinkContainer} from "react-router-bootstrap"
 
+ import io from 'socket.io-client'
+
+const socket = io.connect('http://localhost:4001')
+
 const Navibar = () => {
   const {logout} = useLogout()
   const { user } = useAuthContext()
 
+    // function disconnectClient () {
+    //       socket.disconnect()
+    // }
+
   const handleClick = () => {
+    
+    //disconnectClient()
     logout()
   }
 

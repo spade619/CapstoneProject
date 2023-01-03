@@ -14,8 +14,8 @@ function ChatForm3() {
            
   return (
     <>  
-    <h3><strong>Admin's Room(Talk to Nel?)</strong></h3>
-         <div className="messages-output"> </div>
+    <h3><strong>Admin's Room(Leave NeL a Message...)</strong></h3>
+         <div className="messages-output" style={{backgroundColor:  'teal'}}> </div>
              <Form onSubmit = {handleSubmit}>
 
                    <Row>

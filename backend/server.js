@@ -145,8 +145,9 @@ const server = require('http').createServer(app)
 
         socket.on('disconnect', () => {
             console.log(`user: ${userEmail} has disconnected on room ${roomID} ` )
+            io.to(roomID).emit('delete_users', userEmail)
             CreateRoom.updateOne({_id: roomID, }, {$pull: {email: userEmail}}).then(resultss => {
-               // io.emit('recieve_users', resultss)
+                
            
             })
     
@@ -161,7 +162,7 @@ const server = require('http').createServer(app)
         console.log(`room id sent is ${dataRoom} `)
         CreateRoom.findById(dataRoom).select('email').then(SearchResult => {
           
-          //  socket.emit('recieve_users', SearchResult)
+            socket.emit('Init_recieve_users', SearchResult)
          })
 
 
@@ -170,6 +171,15 @@ const server = require('http').createServer(app)
 
     //
 
+    socket.on('disconnect', () => {
+        console.log(`user:  has disconnected  ` )
+       // io.to(roomID).emit('delete_users', userEmail)
+      //  CreateRoom.updateOne({_id: roomID, }, {$pull: {email: userEmail}}).then(resultss => {
+            
+       
+       // })
+
+      })
     
    
  })

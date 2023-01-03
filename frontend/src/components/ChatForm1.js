@@ -22,7 +22,7 @@ function ChatForm1 () {
     return (
     <>  
     <h3><strong>Global-Chat-Room(Messenger)</strong></h3>
-         <div className="messages-output"> </div>
+         <div className="messages-output" style={{backgroundColor:  'green'}}> </div>
              <Form onSubmit = {handleSubmit}>
 
                    <Row>

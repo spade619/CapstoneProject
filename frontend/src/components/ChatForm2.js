@@ -17,7 +17,7 @@ function ChatForm2() {
     
     <>  
     <h3><strong>TestRoom(Messenger)</strong></h3>
-         <div className="messages-output"> </div>
+         <div className="messages-output" style={{backgroundColor:  'pink'}}> </div>
              <Form onSubmit = {handleSubmit}>
 
                    <Row>
