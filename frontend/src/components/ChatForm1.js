@@ -11,7 +11,8 @@ function ChatForm1 () {
   
     const [message, setMessage] = useState('')
     
-   const handleSubmit = () => {
+   const handleSubmit = (e) => {
+    e.preventDefault()
     console.log('clicked')
     }
     

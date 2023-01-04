@@ -5,9 +5,9 @@ function Room3() {
     <div style={{backgroundColor:  'teal'}}>
      <h3><strong>Admin's Room( user's)</strong> </h3><br/>
     <p>test user2</p>
-    <p>test user</p>
-    <p>test user3</p>
-    <p>test user</p>
+    <p>test use12315r</p>
+    <p>test useasdr3</p>
+    <p>test userzca</p>
 </div>
   )
 }
