@@ -55,10 +55,7 @@ app.use((req, res, next) => {
 //handle ROUTES REQUEST made from by the frontend
 //calls on the home page's default rooms
 //const rooms = ['Server', 'Team', 'room1', 'room2']
-app.get('/api/home', async (req, res) =>{  
-    const rooms = await CreateRoom.find({})
-    res.status(200).json(rooms)
-})
+
 //calls on the profile page
 app.use('/api/profiles', profileRoutes)
 //calls on the user login and signup routes 
@@ -135,6 +132,8 @@ const server = require('http').createServer(app)
     
     socket.on('join_room', (userEmail, roomID) => {
         socket.join(roomID) 
+
+
        // 
         console.log(`user: ${userEmail} has joined room ${roomID}`)
         io.to(roomID).emit('recieve_users', userEmail)
@@ -154,7 +153,14 @@ const server = require('http').createServer(app)
           })
 
 
+
+
     })
+
+    socket.on('send_message1', ( message) => {
+       console.log('room1',  message)
+        io.emit('recieve_message1', message)
+})
    // socket.to(data2._id)
     socket.on('send_users', (dataRoom) => {
       
@@ -168,6 +174,8 @@ const server = require('http').createServer(app)
 
         
     })
+
+    
 
     //
 

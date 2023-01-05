@@ -58,7 +58,7 @@ function CreateCampaign() {
    
     <Col md={7} className='d-flex align-items-center justify-content-center flex-directional-column'>
     <Form style={{width: '80%', maxWidth: 500}}>
-        <h1>Create-Campaign</h1>
+        <h1>Post Something on the Bulletin Board</h1>
 
 
          
@@ -71,7 +71,7 @@ function CreateCampaign() {
      </LinkContainer> 
  
      
-    <Form.Control type="text" placeholder="Enter Your Campaign Title" 
+    <Form.Control type="text" placeholder="What do you got?" 
     onChange={(e) => setTitle(e.target.value)}
      value ={title} />
     </Form.Group>

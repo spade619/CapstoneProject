@@ -10,9 +10,9 @@ const UserName = require('../models/userModel')
 //get thecurrent campaign campaigns
 const CurrentCampaign = async (req, res) => {
     try{
-        const campaignID=req.params
+        const campaignID=req.params.id
        
-    const currentcampaign = await Campaign.find({campaignID})
+    const currentcampaign = await Campaign.findById(campaignID)
     res.status(200).json(currentcampaign)
 } catch (error) {
         res.status(404).json({error: error.message})

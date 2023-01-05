@@ -65,7 +65,7 @@ const Home = () => {
 
     const sendRoom1 = async () => {
        await socket.emit('join_room', user.name, roomID1)
-     }
+     } 
      const sendRoom2 = async () => {
         await socket.emit('join_room', user.name, roomID2)
       }
@@ -83,10 +83,7 @@ const Home = () => {
             
             <Row>
                 <Col md={4}>
-                   
-                {/* {room && room.map((room) => (                           
-     <Sidebar socket={socket} room={room} key = {room._id} />
-                ))} */}
+      
 
      <button onClick={() => setToggleRoom(0)}>(default)-globalRoom</button>
      <button onClick={sendRoom1}>join</button><br/> <br/>
@@ -102,6 +99,7 @@ const Home = () => {
 
 
               <Col>
+          
               {/* <SidebarUsersList socket = {socket}/> */}
               {ToggleRoom === 0 && <Room1 roomID1={roomID1} socket={socket}/>}
               {ToggleRoom === 1 && <Room2 roomID1={roomID2} socket={socket}/>}
@@ -110,12 +108,15 @@ const Home = () => {
             
               </Col>
               
-                
+          
             
                 </Col>
                 <Col md={8}>
                     {/* <ChatForm /> */}
-                    {ToggleRoom === 0 && <ChatForm1 />}
+                    {ToggleRoom === 0 && <ChatForm1  
+                                                      username = {user.name} 
+                                                     roomID1 = {roomID1}
+                                                     />}
                     {ToggleRoom === 1 && <ChatForm2 />}
                     {ToggleRoom === 2 && <ChatForm3 />}
                  

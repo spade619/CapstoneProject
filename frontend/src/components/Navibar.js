@@ -44,12 +44,17 @@ const Navibar = () => {
                    )}
 
           {user && (<LinkContainer to="/campaigns">
-              <Nav.Link>Campaign</Nav.Link>
+              <Nav.Link>Campaigns & Advertisements</Nav.Link>
+                  </LinkContainer>
+                   )}
+
+            {user && (<LinkContainer to="/agents">
+              <Nav.Link>Hire Agents</Nav.Link>
                   </LinkContainer>
                    )}
 
         {user && (<LinkContainer to="/about">
-              <Nav.Link>About</Nav.Link>
+              <Nav.Link>About Us</Nav.Link>
                   </LinkContainer>
                    )}
 

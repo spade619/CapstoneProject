@@ -40,10 +40,11 @@ const Campaigns = () => {
         <Container>
         <br/>
                   <br/>
-                  <h2>MY CAMPAIGNS</h2>
+                  <h1><strong>Bulletin Board</strong></h1>
+                  <br/>
       <LinkContainer to="/campaigns/create">
     
-      <Button><strong>Create Campaign</strong></Button>
+      <Button><strong>Make a Post on the Bulletin Board</strong></Button>
             
                   </LinkContainer>
                
@@ -59,7 +60,7 @@ const Campaigns = () => {
                   <br/>
                   <br/>
                   <LinkContainer to="/campaigns/join">
-       <Button><strong>Join Campaign</strong></Button>
+       <Button><strong>View All Post/Advertisements</strong></Button>
                    </LinkContainer>
 
                  

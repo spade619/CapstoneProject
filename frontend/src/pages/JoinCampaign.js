@@ -41,7 +41,7 @@ function JoinCampaign() {
     </Button>
      </LinkContainer> 
 
-     <h1><strong>Join a Campaign</strong></h1>
+     <h1><strong>Storyadore Bulletin Board</strong></h1>
        
        {Allcampaigns && Allcampaigns.map((Allcampaigns) => (                           
      <AllCampaignDetails  Allcampaigns={Allcampaigns} key = {Allcampaigns._id} />

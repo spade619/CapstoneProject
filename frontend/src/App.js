@@ -15,6 +15,7 @@ import UserSettings from './pages/UserSettings'
 import { useState } from 'react'
 
 import CurrentCampaign from './components/CurrentCampaign'
+import AgentsZone from './components/AgentsZone'
 
 function App(){
   //grabs the value either a user is logged in or logged out
@@ -87,6 +88,13 @@ function App(){
             //if signup is successfull navigate to profile page
             element={user ? <JoinCampaign /> : <Navigate to = "/login" />}
             />
+
+            <Route 
+            path ="agents"
+            //if signup is successfull navigate to profile page
+            element={user ? <AgentsZone /> : <Navigate to = "/login" />}
+            />
+
 
              <Route 
             path ="campaigns/join/specific-campaign/:id"

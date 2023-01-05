@@ -42,8 +42,8 @@ function AllCampaignDetails({Allcampaigns}) {
 <tbody>
   <tr>
   <Button variant="link" onClick={() => navigate(`specific-campaign/${Allcampaigns._id}`)}>
-                                  <strong>{` Campaign Name:  ${Allcampaigns.title}`}</strong>  
-                                  <p>{`created by:  ${CampaignName}`}</p>
+                                  <strong>{Allcampaigns.title}</strong>  
+                                  <p>{`posted by:  ${CampaignName}`}</p>
                                   <p>{`created :  ${formatDistanceToNow(new Date(Allcampaigns.createdAt), {addSuffix: true})}`}</p>
  </Button>
      

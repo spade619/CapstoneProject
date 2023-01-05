@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useAuthContext } from '../hooks/useAuthContext'
 
 function Room1({roomID1, socket}) {
+
    const [Users, setUsers] = useState([])
 
       console.log(Users)
@@ -10,7 +11,7 @@ function Room1({roomID1, socket}) {
 
     
       useEffect(() => {
-      
+       
         socket.emit('send_users', roomID1)
 
        socket.on('Init_recieve_users', (data1) => {
@@ -24,9 +25,7 @@ function Room1({roomID1, socket}) {
 
 
       useEffect(() => {
-
-       
-       
+ 
   socket.on('recieve_users', (data1) => {
     // console.log(data1)
   //const {email} = data1
@@ -34,9 +33,6 @@ function Room1({roomID1, socket}) {
      // dispatch(setUser({name: data1.email}))
     // setUsers(email)
    }) 
-
-
-    
  
       }, [socket])
 

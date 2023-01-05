@@ -11,6 +11,11 @@ const {createCampaign,
 
 
        const router = express.Router()
+       router.get('/api/getUser/:id', async (req, res) =>{  
+              const UID=req.params.id
+              const userzs = await User.findById(UID).select('email')
+              res.status(200).json(userzs)
+          })
        router.get('/join', getAllCampaigns)
        router.get('/join/:id', getUserName)
        router.get('/join/specific-campaign/:id', CurrentCampaign)
